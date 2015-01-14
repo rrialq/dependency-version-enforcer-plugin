@@ -8,10 +8,10 @@ The plugin allows you to define a list of dependencies to include in the analysi
 Have you ever wondered ...?
 
 * Are beta versions good enought to deploy in a production environment?
->No, they aren't. **Beta versions** shouldn't be deployed in a production environment. Beta versions contains most of the major features planned for a version, but it may be incomplete and it may contain bugs.
+>No, they aren't. **Beta versions** shouldn't be deployed in a production environment. Beta versions contains most of the major features planned for a version, but it may not be ready and it may contain bugs.
 
 * Are SNAPSHOT versions ready for testing environments?
->No. A **SNAPSHOT** is the result of the development build for internal purposes. The test environment is an environment to test a non development build.
+>No. A **SNAPSHOT** is the result of the development build for internal purposes. The test environment is an environment for testing a non development build.
 
 * Should I deploy a release candidate in production environment?
 >No. A **release candidate** is a *ready to publish* version, **unless errors are detected**, but the schema version does not tell us whether it has been accepted or not: we can release the rc0, rc1 and rc2 versions. We found errors in the rc2 version at test environment, that were not present in the rc1, we reject it, and approve the rc1.
