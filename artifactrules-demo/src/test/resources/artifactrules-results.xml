@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<reportResults>
+    <ruleset>
+        <id>default</id>
+        <author>Ramón Rial</author>
+        <url>jar://default-configuration</url>
+        <version>1.0.0</version>
+        <published>2014-08-08 15:16:00.0 UTC</published>
+        <description>Default ruleset</description>
+    </ruleset>
+
+    <ruleset>
+        <id>coutemeier</id>
+        <author>Coutemeier</author>
+        <url>http://some.domain</url>
+        <version>1.1.0</version>
+        <published>2014-08-08 15:16:00.0 UTC</published>
+        <description>Ruleset wrotten by Coutemeier</description>
+    </ruleset>
+
+    <excluded>
+        <id>com.coutemeier:artifact-1</id>
+        <version>1.0.0</version>
+        <rule>default</rule>
+    </excluded>
+
+    <excluded>
+        <id>com.coutemeier:artifact-3</id>
+        <version>2.0.0</version>
+        <rule>coutemeier</rule>
+    </excluded>
+
+    <banned>
+        <id>spring:spring-aop</id>
+        <version>1.0.0-SNAPSHOT</version>
+        <rule>coutemeier</rule>
+    </banned>
+</reportResults>

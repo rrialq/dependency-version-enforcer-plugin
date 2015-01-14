@@ -1,0 +1,103 @@
+<!?xml version="1.0" encoding="UTF-8">
+<!-- Some ideas. This is a draft, only for my thoughts -->
+<configuration>
+    <id>default</id>
+    <version>1.0.0</version>
+    <author>Ramón Rial</author>
+    <published>2014-08-08 15:16:00.0 UTC</published>
+
+<!--
+    onConflict: This is a hint to help the plugin to decide what to do if the configuration (id) was previously defined
+    The allowed values are:
+
+    * REPLACE = REPLACE the configuration with this
+    * MERGE   = Try to add all ruleset in this configuration to existent rules. Beware with ruleset/onConflict.
+-->
+    <onConflict>REPLACE</onConflict>
+
+    <ruleset>
+        <id>bannedVersionsInProduction</id>
+        <description>A common ruleset which specifies some banned versions</description>
+<!--
+    onConflict: This is a hint to help the plugin what to do if the ruleset (id) was previously defined
+    The allowed values are:
+
+    * REPLACE = REPLACE the ruleset with this
+    * MERGE   = Try to add all rules in this ruleset to existent rules
+-->
+        <onConflict>REPLACE</onConflict>
+        <dependencyManagement>
+            <dependency>com\.coutemeier\.demo\..*:.*</dependency>
+            <version>^\\d+\\.\\d+\\.\\d+(-SNAPSHOT|a\\d+|b\\d+|rc\\d+)$</version>
+<!-- 
+    One or more actions.
+    match = if dependency version matches the dependencyManagement.version regular expression
+-->
+            <actions match="true">BAN,LOG</actions>
+            <actions match="false">LOG</actions>
+            <appliesToTransitiveDependencies>false</appliesToTransitiveDependencies>
+        </dependencyManagement>
+        <dependencyManagement>
+            <dependency>com\.coutemeier\.demo\..*:.*</dependency>
+            <dependency>.*:.*</dependency>
+            <version>^\\d+\\.\\d+\\.\\d+(-SNAPSHOT|a\\d+|b\\d+|rc\\d+)$</version>
+            <appliesToTransitiveDependencies>true</appliesToTransitiveDependencies>
+        </banned>
+        <ignored>
+            <dependency>com\.coutemeier\.demo\.excluded:.*</dependency>
+            <version>^.*$</version>
+            <appliesToTransitiveDependencies>false</appliesToTransitiveDependencies>
+            <action>ignore</action>
+        </ignored>
+    </dependencyManagement>
+
+    <environment>
+        <id>production-environment</id>
+        <description></description>
+        <inherited>true</inherited>
+        <appliesTo>
+            <rule>bannedVersionsInProduction</rule>
+        </appliesTo>
+    </environment>
+
+    <environment>
+        <id>development</id>
+        <alias>desarrollo</alias>
+        <alias>desenvolvemento</alias>
+
+        <inherited>true</inherited>
+        <ignoreTransitiveDependencies>false</ignoreTransitiveDependencies>
+        <include>
+            <artifact>^com\\.coutemeier\\.*:\\.*</artifact>
+            <version>^\\d+\\.\\d+\\.\\d+(-SNAPSHOT|a\\d+|b\\d+|rc\\d+)$</version>
+        </include>
+        <exclude>
+            <artifact>.*:.*</artifact> <!-- Valor por defecto para una exclusión -->
+            <scope>test</scope>
+        </exclude>
+    </environment>
+    <environment>
+        <id>test</id>
+        <alias>piloto</alias>
+        <alias>preproduccion</alias>
+        <alias>preproducion</alias>
+        <alias>preproduction</alias>
+    </environment>
+    <environment>
+        <id>production</id>
+        <alias>produccion</alias>
+        <alias>producion</alias>
+        <banned> <!-- this is the rule name -->
+            <artifact>.*</artifact> <!-- One or more artifact nodes which this rule will be apply. .* is the default value -->
+            <version>^\\.*-SNAPSHOT</version> <!-- One or more version nodes which this rule will be apply -->
+            <version>^\\.*-(a|b|rc|cr|alfa|beta)\d+</version>
+            <version>^\\.*-(jdk4|jdk14|java14|backported)(-.*)-(\d+\.){2}\d+</version>
+        </banned>
+        <banned>
+            
+        <minimal> <!-- a minimal rule for production -->
+            <artifact>com.coutemeier:.*</artifact>
+            <version>1.0.0</version>
+        </minimal>
+    </environment>
+</configuration>
