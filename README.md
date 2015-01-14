@@ -1,5 +1,8 @@
 Rules for environments
 ====
+##Readme first
+This is a project in planning stage. Only ideas, and experiments, so don't ask me for nothing for the moment (thank you).
+
 ##About this plugin
 Rules for environments is a new plugin for Maven 2/3. The main use of the plugin is to break the project construction if any dependency, or the project itself, does not meet a set of pre-established rules.
 
