@@ -29,13 +29,22 @@
         <dependencyManagement>
             <dependency>com\.coutemeier\.demo\..*:.*</dependency>
             <version>^\\d+\\.\\d+\\.\\d+(-SNAPSHOT|a\\d+|b\\d+|rc\\d+)$</version>
+            <scopes>
+                <scope>compile</scope>
+                <scope>test</scope>
+            </scopes>
+            <appliesToTransitiveDependencies>false</appliesToTransitiveDependencies>
 <!-- 
     One or more actions.
     match = if dependency version matches the dependencyManagement.version regular expression
 -->
-            <actions match="true">BAN,LOG</actions>
-            <actions match="false">LOG</actions>
-            <appliesToTransitiveDependencies>false</appliesToTransitiveDependencies>
+            <actions match="true">
+                <action>BAN</action>
+                <action>LOG</action>
+            </actions>
+            <actions match="false">
+                <action>LOG</action>
+            </actions>
         </dependencyManagement>
         <dependencyManagement>
             <dependency>com\.coutemeier\.demo\..*:.*</dependency>
